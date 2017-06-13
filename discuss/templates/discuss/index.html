@@ -1,0 +1,40 @@
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Discussion Topics</title>
+
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Simple Discussion Forum</h1>
+        <h2>Topics to Discuss</h2>
+
+        {% if topics %}
+            <ul>
+            {% for topic in topics %}
+                <li><a href="/topic/{{ topic.id }}/">{{ topic.title }}</a></li>
+            {% endfor %}
+            </ul>
+        {% else %}
+            <p>No Topics yet.</p>
+        {% endif %}
+
+        <form action="{% url 'new_topic' %}" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="title">Add a new topic:</label>
+                <input class="form-control" type="text" name="title" id="title" placeholder="What's the topic?" />
+                <label for="description">Describe your topic:</label>
+                <textarea class="form-control" rows="3" name="description" id="description" placeholder="Please. Tell us more..."></textarea>
+                <button class="btn btn-primary" type="submit" value="Submit">Submit</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
